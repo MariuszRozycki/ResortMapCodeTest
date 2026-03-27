@@ -5,11 +5,13 @@ const config = parseCliArgs();
 
 const app = createApp(config);
 
-const PORT = 3000;
+const PORT = process.env.PORT || 3000;
 
 app.listen(PORT, () => {
+  console.log("=================================");
   console.log(`Server running on http://localhost:${PORT}`);
   console.log("Using files:");
-  console.log("Map:", config.mapPath);
-  console.log("Bookings:", config.bookingsPath);
+  console.log("map:", config.mapPath);
+  console.log("bookings:", config.bookingsPath);
+  console.log("=================================");
 });
