@@ -1,7 +1,9 @@
 import { parseCliArgs } from "./config/cli";
 import { createApp } from "./app";
+import { parseMapFile } from "./parsers/parseMapFile";
 
 const config = parseCliArgs();
+const parsedMap = parseMapFile(config.mapPath);
 
 const app = createApp(config);
 
@@ -13,5 +15,10 @@ app.listen(PORT, () => {
   console.log("Using files:");
   console.log("map:", config.mapPath);
   console.log("bookings:", config.bookingsPath);
+  console.log("=================================");
+  console.log("Map parsed successfully");
+  console.log("rows:", parsedMap.rows);
+  console.log("cols:", parsedMap.cols);
+  console.log("cabanas:", parsedMap.cabanas.length);
   console.log("=================================");
 });

@@ -1,6 +1,7 @@
 import express from "express";
 import cors from "cors";
 import { CliConfig } from "./config/cli";
+import { createMapRouter } from "./routes/map.routes";
 
 export function createApp(config: CliConfig) {
   const app = express();
@@ -8,8 +9,9 @@ export function createApp(config: CliConfig) {
   app.use(cors());
   app.use(express.json());
 
-  // test endpoint
-  app.get("/api/health", (req, res) => {
+  app.use("/api", createMapRouter(config));
+
+  app.get("/api/map", (req, res) => {
     res.json({ status: "ok" });
   });
 
