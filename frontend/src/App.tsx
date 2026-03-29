@@ -1,6 +1,21 @@
 import { useState, useEffect, useMemo } from "react";
 import { fetchResortMap } from "./api/mapApi";
-import type { ResortMapResponse, Cabana } from "./types/map";
+import type {
+  ResortMapResponse,
+  Cabana,
+  TileType,
+  MapTile,
+  PathTileDisplay,
+} from "./types/map";
+import parchmentBasic from "../../assets/parchmentBasic.png";
+import cabanaImage from "../../assets/cabana.png";
+import chaletImage from "../../assets/houseChimney.png";
+import poolImage from "../../assets/pool.png";
+import arrowStraight from "../../assets/arrowStraight.png";
+import arrowCornerSquare from "../../assets/arrowCornerSquare.png";
+import arrowCrossing from "../../assets/arrowCrossing.png";
+import arrowEnd from "../../assets/arrowEnd.png";
+import arrowSplit from "../../assets/arrowSplit.png";
 import "./App.css";
 
 function App() {
@@ -33,6 +48,118 @@ function App() {
     );
   }, [mapData]);
 
+  const tilesMap = useMemo(() => {
+    if (!mapData) {
+      return new Map<string, MapTile>();
+    }
+
+    return new Map(mapData.tiles.map((tile) => [`${tile.x}-${tile.y}`, tile]));
+  }, [mapData]);
+
+  function getTileAt(x: number, y: number) {
+    return tilesMap.get(`${x}-${y}`);
+  }
+
+  function isPathAt(x: number, y: number) {
+    return getTileAt(x, y)?.type === "path";
+  }
+
+  function getPathTileDisplay(x: number, y: number): PathTileDisplay {
+    const top = isPathAt(x, y - 1);
+    const right = isPathAt(x + 1, y);
+    const bottom = isPathAt(x, y + 1);
+    const left = isPathAt(x - 1, y);
+
+    const connections = [top, right, bottom, left].filter(Boolean).length;
+
+    if (connections === 4) {
+      return {
+        image: arrowCrossing,
+        rotation: 0,
+      };
+    }
+
+    if (connections === 3) {
+      if (!top) {
+        return { image: arrowSplit, rotation: 90 };
+      }
+
+      if (!right) {
+        return { image: arrowSplit, rotation: 180 };
+      }
+
+      if (!bottom) {
+        return { image: arrowSplit, rotation: 270 };
+      }
+
+      return { image: arrowSplit, rotation: 0 };
+    }
+
+    if (connections === 2) {
+      if (top && bottom) {
+        return { image: arrowStraight, rotation: 0 };
+      }
+
+      if (left && right) {
+        return { image: arrowStraight, rotation: 90 };
+      }
+
+      if (top && right) {
+        return { image: arrowCornerSquare, rotation: 0 };
+      }
+
+      if (right && bottom) {
+        return { image: arrowCornerSquare, rotation: 90 };
+      }
+
+      if (bottom && left) {
+        return { image: arrowCornerSquare, rotation: 180 };
+      }
+
+      return { image: arrowCornerSquare, rotation: 270 };
+    }
+
+    if (connections === 1) {
+      if (top) {
+        return { image: arrowEnd, rotation: 0 };
+      }
+
+      if (right) {
+        return { image: arrowEnd, rotation: -90 };
+      }
+
+      if (bottom) {
+        return { image: arrowEnd, rotation: 180 };
+      }
+
+      if (left) {
+        return { image: arrowEnd, rotation: 90 };
+      }
+    }
+
+    return {
+      image: arrowEnd,
+      rotation: 0,
+    };
+  }
+
+  function getTileImage(tileType: TileType) {
+    switch (tileType) {
+      case "cabana":
+        return cabanaImage;
+      case "chalet":
+        return chaletImage;
+      case "pool":
+        return poolImage;
+      case "empty":
+        return parchmentBasic;
+      case "path":
+        return parchmentBasic;
+      default:
+        return parchmentBasic;
+    }
+  }
+
   if (isLoading) {
     return <p>Loading map...</p>;
   }
@@ -64,6 +191,15 @@ function App() {
           {mapData.tiles.map((tile) => {
             const cabana = cabanasMap.get(`${tile.x}-${tile.y}`);
 
+            const pathDisplay =
+              tile.type === "path" ? getPathTileDisplay(tile.x, tile.y) : null;
+
+            const imageSrc = pathDisplay
+              ? pathDisplay.image
+              : getTileImage(tile.type);
+
+            const imageRotation = pathDisplay ? pathDisplay.rotation : 0;
+
             return (
               <div
                 key={`${tile.x}-${tile.y}`}
@@ -82,7 +218,12 @@ function App() {
                     : ""
                 }`}
               >
-                {tile.symbol}
+                <img
+                  src={imageSrc}
+                  alt={tile.type}
+                  className="tile-image"
+                  style={{ transform: `rotate(${imageRotation}deg)` }}
+                />
               </div>
             );
           })}

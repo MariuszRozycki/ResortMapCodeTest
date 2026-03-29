@@ -22,3 +22,8 @@ export type ResortMapResponse = {
   tiles: MapTile[];
   cabanas: Cabana[];
 };
+
+export type PathTileDisplay = {
+  image: string;
+  rotation: number;
+};
