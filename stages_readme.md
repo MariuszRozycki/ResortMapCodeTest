@@ -18,6 +18,7 @@
 ```bash
 npm init -y
 npm install express cors
+npm install -D @types/cors
 npm install -D typescript tsx @types/node @types/express
 npx tsc --init
 ```
