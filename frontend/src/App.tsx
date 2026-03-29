@@ -1,5 +1,6 @@
 import { useState, useEffect, useMemo } from "react";
 import { fetchResortMap } from "./api/mapApi";
+import { bookCabana } from "./api/bookingApi";
 import type {
   ResortMapResponse,
   Cabana,
@@ -24,6 +25,11 @@ function App() {
   const [error, setError] = useState<string | null>(null);
 
   const [selectedCabana, setSelectedCabana] = useState<Cabana | null>(null);
+  const [roomNumber, setRoomNumber] = useState("");
+  const [guestName, setGuestName] = useState("");
+  const [bookingMessage, setBookingMessage] = useState<string | null>(null);
+  const [bookingError, setBookingError] = useState<string | null>(null);
+  const [isBooking, setIsBooking] = useState(false);
 
   useEffect(() => {
     async function loadMap() {
@@ -39,6 +45,42 @@ function App() {
 
     loadMap();
   }, []);
+
+  async function handleBookCabana() {
+    if (!selectedCabana) {
+      return;
+    }
+
+    setBookingError(null);
+    setBookingMessage(null);
+    setIsBooking(true);
+
+    try {
+      const result = await bookCabana(selectedCabana.id, {
+        roomNumber,
+        guestName,
+      });
+
+      setBookingMessage(result.message);
+
+      const updatedMap = await fetchResortMap();
+      setMapData(updatedMap);
+
+      const updatedSelectedCabana =
+        updatedMap.cabanas.find((cabana) => cabana.id === selectedCabana.id) ??
+        null;
+
+      setSelectedCabana(updatedSelectedCabana);
+    } catch (error) {
+      if (error instanceof Error) {
+        setBookingError(error.message);
+      } else {
+        setBookingError("Failed to book cabana.");
+      }
+    } finally {
+      setIsBooking(false);
+    }
+  }
 
   const cabanasMap = useMemo(() => {
     if (!mapData) {
@@ -222,6 +264,10 @@ function App() {
                   const clickedCabana =
                     cabanasMap.get(`${tile.x}-${tile.y}`) ?? null;
                   setSelectedCabana(clickedCabana);
+                  setRoomNumber("");
+                  setGuestName("");
+                  setBookingMessage(null);
+                  setBookingError(null);
                 }}
                 title={`x: ${tile.x}, y: ${tile.y}, symbol: ${tile.symbol}, type: ${tile.type}${
                   cabana
@@ -257,6 +303,41 @@ function App() {
               <strong>Status:</strong>{" "}
               {selectedCabana.isAvailable ? "Available" : "Unavailable"}
             </p>
+
+            {selectedCabana.isAvailable && (
+              <div className="booking-form">
+                <h3>Book this cabana</h3>
+
+                <label>
+                  Room number
+                  <input
+                    type="text"
+                    value={roomNumber}
+                    onChange={(event) => setRoomNumber(event.target.value)}
+                  />
+                </label>
+
+                <label>
+                  Guest name
+                  <input
+                    type="text"
+                    value={guestName}
+                    onChange={(event) => setGuestName(event.target.value)}
+                  />
+                </label>
+
+                <button
+                  type="button"
+                  onClick={handleBookCabana}
+                  disabled={isBooking}
+                >
+                  {isBooking ? "Booking..." : "Book cabana"}
+                </button>
+              </div>
+            )}
+
+            {bookingMessage && <p>{bookingMessage}</p>}
+            {bookingError && <p>{bookingError}</p>}
           </>
         ) : (
           <p>Click a cabana on the map to see details.</p>
