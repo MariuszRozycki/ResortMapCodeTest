@@ -23,6 +23,8 @@ function App() {
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
+  const [selectedCabana, setSelectedCabana] = useState<Cabana | null>(null);
+
   useEffect(() => {
     async function loadMap() {
       try {
@@ -206,12 +208,21 @@ function App() {
                 className={[
                   "tile",
                   `tile-${tile.type}`,
+                  tile.type === "cabana" ? "tile-clickable" : "",
+                  selectedCabana?.id === cabana?.id ? "tile-selected" : "",
                   cabana
                     ? cabana.isAvailable
                       ? "tile-cabana-available"
                       : "tile-cabana-unavailable"
                     : "",
                 ].join(" ")}
+                onClick={() => {
+                  if (tile.type !== "cabana") return;
+
+                  const clickedCabana =
+                    cabanasMap.get(`${tile.x}-${tile.y}`) ?? null;
+                  setSelectedCabana(clickedCabana);
+                }}
                 title={`x: ${tile.x}, y: ${tile.y}, symbol: ${tile.symbol}, type: ${tile.type}${
                   cabana
                     ? `, id: ${cabana.id}, available: ${cabana.isAvailable}`
@@ -228,6 +239,28 @@ function App() {
             );
           })}
         </div>
+      </section>
+
+      <section className="details-panel">
+        <h2>Selected cabana</h2>
+
+        {selectedCabana ? (
+          <>
+            <p>
+              <strong>ID:</strong> {selectedCabana.id}
+            </p>
+            <p>
+              <strong>Position:</strong> ({selectedCabana.x}, {selectedCabana.y}
+              )
+            </p>
+            <p>
+              <strong>Status:</strong>{" "}
+              {selectedCabana.isAvailable ? "Available" : "Unavailable"}
+            </p>
+          </>
+        ) : (
+          <p>Click a cabana on the map to see details.</p>
+        )}
       </section>
     </main>
   );

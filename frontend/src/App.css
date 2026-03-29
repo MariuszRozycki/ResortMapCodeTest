@@ -82,3 +82,34 @@
   border-color: #ef4444;
   color: #991b1b;
 }
+
+.tile-clickable {
+  cursor: pointer;
+}
+
+.tile-clickable:hover {
+  transform: scale(1.04);
+  transition: transform 0.15s ease;
+}
+
+.tile-selected {
+  outline: 3px solid #f59e0b;
+  outline-offset: -3px;
+}
+
+.details-panel {
+  margin-top: 1.5rem;
+  padding: 1rem;
+  border: 1px solid #374151;
+  border-radius: 0.75rem;
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.details-panel h2 {
+  margin-top: 0;
+  margin-bottom: 0.75rem;
+}
+
+.details-panel p {
+  margin: 0.35rem 0;
+}
