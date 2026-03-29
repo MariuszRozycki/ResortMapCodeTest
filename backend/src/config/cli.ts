@@ -1,6 +1,6 @@
 export type CliConfig = {
   mapPath: string;
-  bookingsPath: string;
+  bookingsFilePath: string;
 };
 
 export function parseCliArgs(): CliConfig {
@@ -22,6 +22,6 @@ export function parseCliArgs(): CliConfig {
 
   return {
     mapPath: getArg("--map", "./map.ascii"),
-    bookingsPath: getArg("--bookings", "./bookings.json"),
+    bookingsFilePath: getArg("--bookings", "./bookings.json"),
   };
 }
