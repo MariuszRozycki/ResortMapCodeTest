@@ -1,27 +1,25 @@
+import path from "path";
+
 export type CliConfig = {
   mapPath: string;
   bookingsFilePath: string;
 };
 
 export function parseCliArgs(): CliConfig {
-  const args = process.argv;
+  const args = process.argv.slice(2);
 
-  const getArg = (name: string, defaultValue: string): string => {
-    const index = args.indexOf(name);
+  const mapIndex = args.indexOf("--map");
+  const bookingsIndex = args.indexOf("--bookings");
 
-    if (index !== -1) {
-      const value = args[index + 1];
+  const mapArgFromCli = mapIndex !== -1 ? args[mapIndex + 1] : undefined;
+  const bookingsArgFromCli =
+    bookingsIndex !== -1 ? args[bookingsIndex + 1] : undefined;
 
-      if (typeof value === "string" && value.trim() !== "") {
-        return value;
-      }
-    }
-
-    return defaultValue;
-  };
+  const mapArg = mapArgFromCli ?? "../map.ascii";
+  const bookingsArg = bookingsArgFromCli ?? "../bookings.json";
 
   return {
-    mapPath: getArg("--map", "./map.ascii"),
-    bookingsFilePath: getArg("--bookings", "./bookings.json"),
+    mapPath: path.resolve(process.cwd(), mapArg),
+    bookingsFilePath: path.resolve(process.cwd(), bookingsArg),
   };
 }

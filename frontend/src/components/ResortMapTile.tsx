@@ -1,0 +1,48 @@
+import type { Cabana, MapTile } from "../types/map";
+
+type ResortMapTileProps = {
+  tile: MapTile;
+  cabana?: Cabana;
+  isSelected: boolean;
+  imageSrc: string;
+  imageRotation: number;
+  onClick: () => void;
+};
+
+function ResortMapTile({
+  tile,
+  cabana,
+  isSelected,
+  imageSrc,
+  imageRotation,
+  onClick,
+}: ResortMapTileProps) {
+  const className = [
+    "tile",
+    `tile-${tile.type}`,
+    tile.type === "cabana" ? "tile-clickable" : "",
+    isSelected ? "tile-selected" : "",
+    cabana
+      ? cabana.isAvailable
+        ? "tile-cabana-available"
+        : "tile-cabana-unavailable"
+      : "",
+  ].join(" ");
+
+  const title = cabana
+    ? `${cabana.id} - ${cabana.isAvailable ? "Available" : "Unavailable"}`
+    : tile.type;
+
+  return (
+    <div className={className} onClick={onClick} title={title}>
+      <img
+        src={imageSrc}
+        alt={tile.type}
+        className="tile-image"
+        style={{ transform: `rotate(${imageRotation}deg)` }}
+      />
+    </div>
+  );
+}
+
+export default ResortMapTile;
