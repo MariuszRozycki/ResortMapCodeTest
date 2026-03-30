@@ -1,25 +1,18 @@
-import fs from "fs";
-import path from "path";
-import type { Cabana } from "../types/map.types";
-import type {
-  GuestBookingRecord,
+import { parseGuestsFile } from "../parsers/parseGuestsFile";
+import {
   BookCabanaRequestBody,
   BookCabanaResult,
+  GuestBookingRecord,
 } from "../types/booking.types";
+import { Cabana } from "../types/map.types";
 
 export class BookingService {
   private guests: GuestBookingRecord[];
   private bookedCabanaIds: Set<string>;
 
-  constructor(bookingsFilePath: string) {
-    this.guests = this.loadGuests(bookingsFilePath);
+  constructor(filePath: string) {
+    this.guests = parseGuestsFile(filePath);
     this.bookedCabanaIds = new Set();
-  }
-
-  private loadGuests(filePath: string): GuestBookingRecord[] {
-    const absolutePath = path.resolve(filePath);
-    const fileContent = fs.readFileSync(absolutePath, "utf-8");
-    return JSON.parse(fileContent) as GuestBookingRecord[];
   }
 
   mergeCabanaAvailability(cabanas: Cabana[]): Cabana[] {
