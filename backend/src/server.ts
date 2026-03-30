@@ -13,12 +13,8 @@ app.listen(PORT, () => {
   console.log("=================================");
   console.log(`Server running on http://localhost:${PORT}`);
   console.log("Using files:");
-  console.log("map:", config.mapPath);
-  console.log("bookings:", config.bookingsPath);
-  console.log("=================================");
-  console.log("Map parsed successfully");
-  console.log("rows:", parsedMap.rows);
-  console.log("cols:", parsedMap.cols);
-  console.log("cabanas:", parsedMap.cabanas.length);
+  console.log(`map: ${config.mapPath}`);
+  console.log(`bookings: ${config.bookingsFilePath}`);
+  console.log("Map parsed successfully.");
   console.log("=================================");
 });

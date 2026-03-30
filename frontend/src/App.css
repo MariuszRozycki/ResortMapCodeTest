@@ -9,14 +9,6 @@
   margin: auto;
 }
 
-.stats {
-  margin-bottom: 1.5rem;
-}
-
-.stats p {
-  margin: 0.25rem 0;
-}
-
 .map-wrapper {
   overflow-x: auto;
 }
