@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "tsx src/server.ts",
     "dev:map": "tsx src/server.ts --map ../map.ascii --bookings ../bookings.json",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "vitest run"
   },
   "keywords": [],
   "author": "",
@@ -19,6 +19,7 @@
     "@types/express": "^5.0.6",
     "@types/node": "^25.5.0",
     "tsx": "^4.21.0",
-    "typescript": "^6.0.2"
+    "typescript": "^6.0.2",
+    "vitest": "^4.1.2"
   }
 }
