@@ -1,7 +1,8 @@
 import { useMemo } from "react";
-import type { ResortMapResponse, Cabana } from "../types/map";
-import ResortMapTile from "./ResortMapTile";
-import { getPathTileDisplay, getTileImage } from "../utils/mapDisplay";
+import type { ResortMapResponse, Cabana } from "../../types/map";
+import ResortMapTile from "../ResortMapTile";
+import { getPathTileDisplay, getTileImage } from "../../utils/mapDisplay";
+import "./ResortMapGrid.css";
 
 type ResortMapGridProps = {
   mapData: ResortMapResponse;
@@ -25,9 +26,9 @@ function ResortMapGrid({
   }, [mapData.tiles]);
 
   return (
-    <section className="map-wrapper">
+    <section className="resort-map-wrapper">
       <div
-        className="map-grid"
+        className="resort-map-grid"
         style={{ gridTemplateColumns: `repeat(${mapData.cols}, 32px)` }}
       >
         {mapData.tiles.map((tile) => {
