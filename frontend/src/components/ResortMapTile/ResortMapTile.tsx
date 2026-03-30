@@ -1,4 +1,5 @@
-import type { Cabana, MapTile } from "../types/map";
+import type { Cabana, MapTile } from "../../types/map";
+import "./ResortMapTile.css";
 
 type ResortMapTileProps = {
   tile: MapTile;
@@ -27,7 +28,9 @@ function ResortMapTile({
         ? "tile-cabana-available"
         : "tile-cabana-unavailable"
       : "",
-  ].join(" ");
+  ]
+    .filter(Boolean)
+    .join(" ");
 
   const title = cabana
     ? `${cabana.id} - ${cabana.isAvailable ? "Available" : "Unavailable"}`

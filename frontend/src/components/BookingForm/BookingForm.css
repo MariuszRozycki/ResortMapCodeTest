@@ -1,0 +1,8 @@
+.booking-form label {
+  display: block;
+  margin: 2px;
+}
+
+.booking-form label input {
+  margin-left: 5px;
+}

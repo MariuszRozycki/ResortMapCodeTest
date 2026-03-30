@@ -1,0 +1,62 @@
+.tile {
+  width: 32px;
+  height: 32px;
+  border: 1px solid #d1d5db;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.8rem;
+  font-weight: 700;
+  box-sizing: border-box;
+}
+
+.tile-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.tile-empty {
+  background: #f3f4f6;
+}
+
+.tile-path {
+  background: #dbeafe;
+}
+
+.tile-pool {
+  background: #bfdbfe;
+}
+
+.tile-chalet {
+  background: #ede9fe;
+}
+
+.tile-cabana {
+  background: #fef3c7;
+}
+
+.tile-cabana-available {
+  background: #dcfce7;
+  border-color: #22c55e;
+}
+
+.tile-cabana-unavailable {
+  background: #fee2e2;
+  border-color: #ef4444;
+}
+
+.tile-clickable {
+  cursor: pointer;
+}
+
+.tile-clickable:hover {
+  transform: scale(1.09);
+  transition: transform 0.15s ease;
+}
+
+.tile-selected {
+  outline: 3px solid #f59e0b;
+  outline-offset: -3px;
+}
