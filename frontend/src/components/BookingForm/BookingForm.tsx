@@ -1,3 +1,5 @@
+import "./BookingForm.css";
+
 type BookingFormProps = {
   roomNumber: string;
   guestName: string;

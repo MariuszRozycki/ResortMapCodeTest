@@ -1,0 +1,16 @@
+.cabana-details-panel {
+  margin-top: 1.5rem;
+  padding: 1rem;
+  border: 1px solid #374151;
+  border-radius: 0.75rem;
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.cabana-details-panel h2 {
+  margin-top: 0;
+  margin-bottom: 0.75rem;
+}
+
+.cabana-details-panel p {
+  margin: 0.35rem 0;
+}

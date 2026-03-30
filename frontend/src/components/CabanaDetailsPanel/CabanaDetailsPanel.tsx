@@ -1,5 +1,6 @@
-import BookingForm from "./BookingForm";
-import type { Cabana } from "../types/map";
+import BookingForm from "../BookingForm/BookingForm";
+import type { Cabana } from "../../types/map";
+import "./CabanaDetailsPanel.css";
 
 type CabanaDetailsPanelProps = {
   selectedCabana: Cabana | null;
@@ -25,7 +26,7 @@ function CabanaDetailsPanel({
   onBook,
 }: CabanaDetailsPanelProps) {
   return (
-    <section className="details-panel">
+    <section className="cabana-details-panel">
       <h2>Selected cabana</h2>
 
       {selectedCabana ? (

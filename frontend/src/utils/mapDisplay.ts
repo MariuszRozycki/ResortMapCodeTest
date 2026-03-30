@@ -95,7 +95,7 @@ export function getPathTileDisplay(
 
   if (connections === 1) {
     if (top) {
-      return { image: arrowEnd, rotation: 0 };
+      return { image: arrowEnd, rotation: 180 };
     }
 
     if (right) {
@@ -103,7 +103,7 @@ export function getPathTileDisplay(
     }
 
     if (bottom) {
-      return { image: arrowEnd, rotation: 180 };
+      return { image: arrowEnd, rotation: 0 };
     }
 
     if (left) {
