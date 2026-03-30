@@ -11,7 +11,7 @@ export function createApp(config: CliConfig) {
 
   app.use("/api", createMapRouter(config));
 
-  app.get("/api/health", (req, res) => {
+  app.get("/api/health", (_req, res) => {
     res.json({ status: "ok" });
   });
 
