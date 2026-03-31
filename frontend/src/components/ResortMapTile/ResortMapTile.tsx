@@ -37,14 +37,14 @@ function ResortMapTile({
     : tile.type;
 
   return (
-    <div className={className} onClick={onClick} title={title}>
+    <button className={className} onClick={onClick} title={title}>
       <img
         src={imageSrc}
         alt={tile.type}
         className="tile-image"
         style={{ transform: `rotate(${imageRotation}deg)` }}
       />
-    </div>
+    </button>
   );
 }
 
