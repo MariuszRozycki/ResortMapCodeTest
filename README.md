@@ -155,21 +155,21 @@ Returns simple health status.
 }
 ```
 
-### Running Tests
+## Running Tests
 
-#### Run all tests from the project root:
+### Run all tests from the project root:
 
 ```bash
 npm test
 ```
 
-#### Run backend tests only:
+### Run backend tests only:
 
 ```bash
 npm run test:backend
 ```
 
-#### Run frontend tests only:
+### Run frontend tests only:
 
 ```bash
 npm run test:frontend
