@@ -3,6 +3,19 @@
 Resort Map is a full-stack web application for interactive cabana booking at a luxury resort.  
 It displays a resort map based on an ASCII input file, shows cabana availability in real time, and allows guests to book an available cabana after validating their room number and guest name through a REST API.
 
+## Table of Contents
+
+- [Features](##features)
+- [Tech Stack](##tech-stack)
+- [Project Structure](##project-structure)
+- [How to Run the App](##how-to-run-the-app)
+- [API Endpoints](##api-endpoints)
+- [Running Tests](##running-tests)
+- [Screenshot](##screenshot)
+- [Design Decisions and Trade-offs](#design-decisions-and-trade-offs)
+- [Notes](##notes)
+- [Author](##author)
+
 ## Features
 
 - Interactive resort map rendered from backend API data
