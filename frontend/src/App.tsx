@@ -69,9 +69,9 @@ function App() {
       setSelectedCabana(null);
       setBookingMessage(`${result.message} Returning to the map view.`);
 
-      // window.setTimeout(() => {
-      //   setBookingMessage(null);
-      // }, 2500);
+      window.setTimeout(() => {
+        setBookingMessage(null);
+      }, 2500);
     } catch (error) {
       if (error instanceof Error) {
         setBookingError(error.message);
