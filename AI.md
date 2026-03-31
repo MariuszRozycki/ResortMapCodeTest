@@ -140,6 +140,16 @@ Examples:
 - the UI was kept focused on the required flow
 - the architecture was kept simple and readable for a code test
 
+## Example Prompts
+
+Examples of prompts used during development:
+
+- "How should I structure a simple full-stack solution for this cabana booking task?"
+- "Does this React component need refactoring, or is it already simple enough?"
+- "How should I test booking logic separately from API behavior?"
+- "Is this README aligned with the assignment requirements?"
+- "What is the simplest way to support one root command for frontend and backend?"
+
 ## Final Note
 
 AI was used as a thinking and support tool during development, but the final solution was reviewed, tested, and shaped manually step by step.
