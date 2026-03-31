@@ -78,6 +78,7 @@ Run the following commands from the project root to install dependencies for the
 npm install
 npm --prefix backend install
 npm --prefix frontend install
+```
 
 ### Start the full application from the project root:
 
