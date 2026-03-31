@@ -70,6 +70,13 @@ It displays a resort map based on an ASCII input file, shows cabana availability
 
 ## How to Run the App
 
+### Clone the repository
+
+```bash
+git clone https://github.com/MariuszRozycki/ResortMapCodeTest.git
+cd ResortMapCodeTest
+```
+
 ### Install dependencies
 
 Run the following commands from the project root to install dependencies for the root, backend, and frontend:
