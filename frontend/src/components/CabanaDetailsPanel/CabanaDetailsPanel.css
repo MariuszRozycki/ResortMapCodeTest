@@ -14,3 +14,13 @@
 .cabana-details-panel p {
   margin: 0.35rem 0;
 }
+
+.cabana-details-success {
+  color: #166534;
+  font-weight: 600;
+}
+
+.cabana-details-error {
+  color: #b91c1c;
+  font-weight: 600;
+}

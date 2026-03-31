@@ -26,12 +26,12 @@ function CabanaDetailsPanel({
   onBook,
 }: CabanaDetailsPanelProps) {
   return (
-    <section className="cabana-details-panel">
+    <section className="cabana-details-panel" aria-live="polite">
       <h2>Selected cabana</h2>
 
       {selectedCabana ? (
         <>
-          <p>Cabana nr: {selectedCabana.id}</p>
+          <p>Cabana: {selectedCabana.id}</p>
 
           <p>
             <strong>Status:</strong>{" "}
@@ -51,11 +51,23 @@ function CabanaDetailsPanel({
             <p>This cabana is not available for booking.</p>
           )}
 
-          {bookingMessage && <p>{bookingMessage}</p>}
-          {bookingError && <p>{bookingError}</p>}
+          {bookingMessage && (
+            <p className="cabana-details-success">{bookingMessage}</p>
+          )}
+          {bookingError && (
+            <p className="cabana-details-error">{bookingError}</p>
+          )}
         </>
       ) : (
-        <p>Click a cabana on the map to see details.</p>
+        <>
+          {bookingMessage && (
+            <p className="cabana-details-success">{bookingMessage}</p>
+          )}
+          {bookingError && (
+            <p className="cabana-details-error">{bookingError}</p>
+          )}
+          <p>Click an available cabana on the map to book it.</p>
+        </>
       )}
     </section>
   );
