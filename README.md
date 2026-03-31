@@ -70,13 +70,14 @@ It displays a resort map based on an ASCII input file, shows cabana availability
 
 ## How to Run the App
 
-### Install dependencies:
+### Install dependencies
+
+Run the following commands from the project root to install dependencies for the root, backend, and frontend:
 
 ```bash
 npm install
 npm --prefix backend install
 npm --prefix frontend install
-```
 
 ### Start the full application from the project root:
 
