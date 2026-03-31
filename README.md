@@ -5,16 +5,16 @@ It displays a resort map based on an ASCII input file, shows cabana availability
 
 ## Table of Contents
 
-- [Features](##features)
-- [Tech Stack](##tech-stack)
-- [Project Structure](##project-structure)
-- [How to Run the App](##how-to-run-the-app)
-- [API Endpoints](##api-endpoints)
-- [Running Tests](##running-tests)
-- [Screenshot](##screenshot)
+- [Features](#features)
+- [Tech Stack](#tech-stack)
+- [Project Structure](#project-structure)
+- [How to Run the App](#how-to-run-the-app)
+- [API Endpoints](#api-endpoints)
+- [Running Tests](#running-tests)
+- [Screenshot](#screenshot)
 - [Design Decisions and Trade-offs](#design-decisions-and-trade-offs)
-- [Notes](##notes)
-- [Author](##author)
+- [Notes](#notes)
+- [Author](#author)
 
 ## Features
 
