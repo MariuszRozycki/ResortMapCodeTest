@@ -1,13 +1,13 @@
 import type { MapTile, PathTileDisplay, TileType } from "../types/map";
-import parchmentBasic from "../../../assets/parchmentBasic.png";
-import cabanaImage from "../../../assets/cabana.png";
-import chaletImage from "../../../assets/houseChimney.png";
-import poolImage from "../../../assets/pool.png";
-import arrowStraight from "../../../assets/arrowStraight.png";
-import arrowCornerSquare from "../../../assets/arrowCornerSquare.png";
-import arrowCrossing from "../../../assets/arrowCrossing.png";
-import arrowEnd from "../../../assets/arrowEnd.png";
-import arrowSplit from "../../../assets/arrowSplit.png";
+import parchmentBasic from "../assets/parchmentBasic.png";
+import cabanaImage from "../assets/cabana.png";
+import chaletImage from "../assets/houseChimney.png";
+import poolImage from "../assets/pool.png";
+import arrowStraight from "../assets/arrowStraight.png";
+import arrowCornerSquare from "../assets/arrowCornerSquare.png";
+import arrowCrossing from "../assets/arrowCrossing.png";
+import arrowEnd from "../assets/arrowEnd.png";
+import arrowSplit from "../assets/arrowSplit.png";
 
 export function getTileImage(tileType: TileType) {
   switch (tileType) {
