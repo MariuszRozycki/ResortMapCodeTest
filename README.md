@@ -1,63 +1,197 @@
 # Resort Map — Code Test
 
-*You are creating the world's first interactive cabana booking website for luxury resorts. Our goal is to offer guests a seamless digital experience: browse an interactive map of the resort, see poolside cabanas availability in real time, and book their ideal lounging spot just steps from the pool—all with just a couple of clicks. This project integrates a visually-rich resort map with live cabana availability and booking, redefining poolside convenience for our guests. Map format and asset usage are described below.*
+Resort Map is a full-stack web application for interactive cabana booking at a luxury resort.  
+It displays a resort map based on an ASCII input file, shows cabana availability in real time, and allows guests to book an available cabana after validating their room number and guest name through a REST API.
 
----
+## Table of Contents
 
-## Task
+- [Features](#features)
+- [Tech Stack](#tech-stack)
+- [Project Structure](#project-structure)
+- [How to Run the App](#how-to-run-the-app)
+- [API Endpoints](#api-endpoints)
+- [Running Tests](#running-tests)
+- [Screenshot](#screenshot)
+- [Design Decisions and Trade-offs](#design-decisions-and-trade-offs)
+- [Notes](#notes)
+- [Author](#author)
 
-Build a webapp that displays the resort map and allows guests to book cabanas. The frontend should rely entirely on a RESTful API for all data.
+## Features
 
-- **Backend:** Provides a RESTful API that serves all information needed to display the interactive, bookable resort map and to handle cabana bookings.
-- **Frontend:** Provides an interactive resort map and enables cabana booking.
+- Interactive resort map rendered from backend API data
+- Visual support for map tiles:
+  - `W` = cabana
+  - `p` = pool
+  - `#` = path
+  - `c` = chalet
+  - `.` = empty space
+- Clickable cabanas with availability status
+- 1-step booking flow for available cabanas
+- Validation of booking by room number and guest name
+- Immediate map update after successful booking
+- Clear success and error messages
+- Automated backend and frontend tests
 
-  - **Resort Map View:**
-    - Displays a visual map of the resort using tiles from `assets`.
-    - Map layout and cabana availability are rendered based on the API response.
-    - Legend:
-      - `W` = cabana
-      - `p` = pool
-      - `#` = path
-      - `c` = chalet
-      - `.` = empty space
+## Tech Stack
 
-  - **Cabana Interaction:**
-    - When a guest clicks on a cabana (`W`):
-      - If the cabana is **available**, show a booking interface (1-step flow: prompt for room number and guest name). Show confirmation of booking and redirect back to map view.
-      - If the cabana is **unavailable**, display information that it's not available.
+### Frontend
 
-  - **Booking Feedback:**
-    - Once a cabana is booked, update the map immediately to show that it is no longer available (e.g., use a distinct visual style for booked cabanas).
+- React
+- TypeScript
+- Vite
+- CSS
 
-  - **Validation:** Booking is only allowed if room number and name match a current guest (validated via API using the bookings file).
+### Backend
 
-The backend reads map layout and booking/guest data from files specified via CLI options: `--map <path-to-map>` (for the ASCII resort map; defaults to `map.ascii` in the working directory) and `--bookings <path-to-bookings>` (for bookings and guest information; defaults to `bookings.json` in the working directory).
-Be sure to use the provided example map (`map.ascii`) and bookings (`bookings.json`) files as the required format for your input files.
+- Node.js
+- Express
+- TypeScript
 
-There is no need for persistent storage for cabana bookings—in-memory or session state on the backend is fine.
+### Testing
 
-No auth—assume that knowing room number and guest name is sufficient auth.
+- Vitest
+- React Testing Library
+- Supertest
 
-The booking flow should end with a clear confirmation and the map visibly updated (booked cabana distinct). Errors (e.g. invalid room/name) should show a short, human-readable message.
+## Project Structure
 
----
+```text
 
-## Deliverables
+|-- backend
+|-- frontend
+|-- bookings.json
+|-- map.ascii
+|-- screenshot.png
+|-- AI.md
+|-- README.md
+|-- start-dev.js
+|-- TASK.md
+```
 
-- **Source code** in a git repository (please provide a link and make sure we have permissions to view/download code).
-- **README:** Please ensure your README is well-structured, concise, and clearly documents how to run and use your app.
-Readme should containt a short paragraph explaining your core design decisions and any trade-offs (e.g. why you structured the API/UI as you did, what you kept simple or skipped).
-- **Single entrypoint:** Provide a **single command** (e.g. `./run.sh`, `npm run start`, or `dotnet run`) that launches both backend and frontend together, so reviewers need only run one command from the project root. This starting command **must accept** the `--map <path>` and `--bookings <path>` arguments so reviewers can specify alternative map or bookings files at startup.
-- **AI-assisted workflow documentation:** Please include your AI workflow in `AI.md`. Which tools you used, what kind of prompts and how many steps it took. This will not be judged, but a topic we would like to discuss during the interview.
-- **Screenshot:** Please include a screenshot (in your repository, e.g., `screenshot.png`) showing your running solution (map view).
-- **Automated Tests:** Include automated tests covering core backend and frontend functionality. Tests should validate booking logic, REST API behavior, map updates, and UI responses to typical user actions. Document how to run all tests in the README.
-- **LLM use:** If you use an LLM or coding agent (which we encourage), include the key prompts or agent setup you used. We may ask detailed questions about both the solution and how you used the tooling.
+## How to Run the App
 
----
+### Install dependencies
 
-## General notes
+Run the following commands from the project root to install dependencies for the root, backend, and frontend:
 
-- **Languages:** Use **.NET and/or JavaScript/TypeScript** only. Other languages are not in scope.
-- Keep it simple; avoid over-engineering. Within that stack, any reasonable libraries or frameworks are fine as long as they are documented.
-- No real auth or persistent storage required—in-memory/session state for cabana bookings is enough.
-- When in doubt, assume we had a simple solution in mind; feel free to ask questions.
+```bash
+npm install
+npm --prefix backend install
+npm --prefix frontend install
+```
+
+### Start the full application from the project root:
+
+```bash
+npm run start
+```
+
+### Default local URLs
+
+Frontend: http://localhost:5173
+Backend: http://localhost:3000
+
+### CLI Arguments
+
+#### The root start command accepts:
+
+```bash
+--map <path> — path to the ASCII map file
+--bookings <path> — path to the bookings/guest file
+```
+
+Example:
+
+```bash
+npm run start -- --map ./map.ascii --bookings ./bookings.json
+```
+
+#### If no arguments are provided, the app uses:
+
+- map.ascii
+- bookings.json
+
+from the project root.
+
+## API Endpoints
+
+### GET /api/health
+
+Returns simple health status.
+
+### GET /api/map
+
+#### Returns map data required by the frontend:
+
+- map size
+- tiles
+- cabanas
+- availability state
+
+### POST /api/cabanas/:cabanaId/book
+
+#### Books a cabana if:
+
+- the cabana is available
+- the provided room number and guest name match the bookings file
+
+### Example request body:
+
+```json
+{
+  "roomNumber": "101",
+  "guestName": "Alice Smith"
+}
+```
+
+### Running Tests
+
+#### Run all tests from the project root:
+
+```bash
+npm test
+```
+
+#### Run backend tests only:
+
+```bash
+npm run test:backend
+```
+
+#### Run frontend tests only:
+
+```bash
+npm run test:frontend
+```
+
+## Screenshot
+
+See screenshot.png for an example of the running application.
+[![Resort Map application screenshot](./screenshot.png)](./screenshot.png)
+
+## Design Decisions and Trade-offs
+
+- This project was designed to stay simple and match the task requirements closely.
+
+### Main decisions
+
+- The frontend relies fully on the REST API for map data and booking actions.
+- The backend keeps cabana booking state in memory, because persistent storage was not required.
+- The map layout is loaded from the ASCII file, while booking validation is based on the provided bookings JSON file.
+- The booking flow was kept as a 1-step interaction to make the UI fast and clear.
+
+### Trade-offs
+
+- Cabana booking state is not persisted after server restart.
+- No authentication was added, because the task explicitly says room number and guest name are enough.
+- The UI is intentionally simple and focused on the required booking flow instead of extra features or styling complexity.
+
+## Notes
+
+- This solution uses a single root command to start both backend and frontend.
+- The project was intentionally kept small and readable to avoid over-engineering.
+- AI workflow documentation is included in AI.md.
+
+## Author
+
+Created by [Mariusz Różycki](https://github.com/MariuszRozycki)

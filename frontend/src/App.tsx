@@ -22,7 +22,7 @@ function App() {
       try {
         const data = await fetchResortMap();
         setMapData(data);
-      } catch (err) {
+      } catch {
         setError("Could not load resort map.");
       } finally {
         setIsLoading(false);
@@ -31,6 +31,12 @@ function App() {
 
     loadMap();
   }, []);
+
+  async function refreshMap() {
+    const updatedMap = await fetchResortMap();
+    setMapData(updatedMap);
+    return updatedMap;
+  }
 
   async function handleBookCabana() {
     if (!selectedCabana) {
@@ -56,16 +62,14 @@ function App() {
         guestName: trimmedGuestName,
       });
 
-      setBookingMessage(result.message);
-
-      const updatedMap = await fetchResortMap();
-      setMapData(updatedMap);
+      await refreshMap();
 
       setRoomNumber("");
       setGuestName("");
+      setSelectedCabana(null);
+      setBookingMessage(`${result.message} Returning to the map view.`);
 
-      setTimeout(() => {
-        setSelectedCabana(null);
+      window.setTimeout(() => {
         setBookingMessage(null);
       }, 2500);
     } catch (error) {
