@@ -74,7 +74,6 @@ It displays a resort map based on an ASCII input file, shows cabana availability
 
 ```bash
 git clone https://github.com/MariuszRozycki/ResortMapCodeTest.git
-cd ResortMapCodeTest
 ```
 
 ### Go to directory
