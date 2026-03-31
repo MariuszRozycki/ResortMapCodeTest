@@ -77,6 +77,11 @@ git clone https://github.com/MariuszRozycki/ResortMapCodeTest.git
 cd ResortMapCodeTest
 ```
 
+### Go to directory
+```bash
+cd ResortMapCodeTest
+```
+
 ### Install dependencies
 
 Run the following commands from the project root to install dependencies for the root, backend, and frontend:
