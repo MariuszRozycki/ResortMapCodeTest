@@ -59,13 +59,13 @@ It displays a resort map based on an ASCII input file, shows cabana availability
 
 |-- backend
 |-- frontend
-|-- assets
 |-- bookings.json
 |-- map.ascii
 |-- screenshot.png
 |-- AI.md
 |-- README.md
 |-- start-dev.js
+|-- TASK.md
 ```
 
 ## How to Run the App
