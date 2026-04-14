@@ -77,6 +77,7 @@ git clone https://github.com/MariuszRozycki/ResortMapCodeTest.git
 ```
 
 ### Go to the project directory
+
 ```bash
 cd ResortMapCodeTest
 ```
@@ -91,7 +92,17 @@ npm --prefix backend install
 npm --prefix frontend install
 ```
 
-### Start the full application from the project root:
+### Create the frontend environment file
+
+Create `frontend/.env` based on `frontend/.env.example`.
+
+Example:
+
+```env
+VITE_API_BASE_URL=http://localhost:3000/api
+```
+
+### Start the full application from the project root
 
 ```bash
 npm run start
@@ -123,6 +134,30 @@ npm run start -- --map ./map.ascii --bookings ./bookings.json
 - bookings.json
 
 from the project root.
+
+## Environment Variables
+
+The frontend uses the following environment variable:
+
+- `VITE_API_BASE_URL` – base URL for the backend API
+
+### Setup
+
+Before starting the application, create a `.env` file in the `frontend/` directory based on the example file:
+
+```bash
+frontend/.env.example -> frontend/.env
+```
+
+Example `frontend/.env`:
+
+```env
+VITE_API_BASE_URL=http://localhost:3000/api
+```
+
+For local development, the default value above is correct.
+
+If the backend is deployed to a different host, update `VITE_API_BASE_URL` to match the deployed API base URL.
 
 ## API Endpoints
 
